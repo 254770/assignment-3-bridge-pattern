@@ -1,0 +1,23 @@
+@startuml
+title Bridge Pattern - Shape x Renderer
+interface Renderer {
+ +renderCircle(radius: double): void
+ +renderSquare(side: double): void
+}
+class VectorRenderer
+class RasterRenderer
+abstract class Shape {
+ #renderer: Renderer
+ +draw(): void
+ +setRenderer(renderer: Renderer): void
+}
+class Circle { -radius: double
++draw(): void }
+class Square { -side: double
++draw(): void }
+Renderer <|.. VectorRenderer
+Renderer <|.. RasterRenderer
+Shape <|-- Circle
+Shape <|-- Square
+Shape o-- Renderer : bridge (composition)
+@enduml
